@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://dycqf468dwdia"]
+
+[ext_resource type="Script" uid="uid://ds5kkhi28mnfc" path="res://scripts/game.gd" id="1_p57ef"]
+[ext_resource type="Texture2D" uid="uid://bwvjqpelhowhx" path="res://assets/sprite_sheet_big.png" id="2_u5sy4"]
+[ext_resource type="AudioStream" uid="uid://dgklfk5tetrsd" path="res://assets/music/stal.mp3" id="3_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://kx7xn1ddms6t" path="res://assets/sounds/big_crunch.mp3" id="3_gee14"]
+[ext_resource type="AudioStream" uid="uid://tvywjfl4e1o0" path="res://assets/sounds/medium_crunch.mp3" id="4_0tnpc"]
+[ext_resource type="AudioStream" uid="uid://b3wikyl7tlmm1" path="res://assets/sounds/long_crunch.mp3" id="5_vtaks"]
+[ext_resource type="AudioStream" uid="uid://bgquwaufenq5o" path="res://assets/sounds/you_failed.mp3" id="6_kvpfn"]
+[ext_resource type="AudioStream" uid="uid://dwrawxg08w0qm" path="res://assets/sounds/death.mp3" id="7_u5sy4"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_fc0e3"]
+texture = ExtResource("2_u5sy4")
+texture_region_size = Vector2i(8, 8)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+3:0/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+3:3/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+5:0/next_alternative_id = 2
+5:0/0 = 0
+5:0/1 = 1
+
+[sub_resource type="TileSet" id="TileSet_7jktm"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_fc0e3")
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ryrav"]
+texture = ExtResource("2_u5sy4")
+texture_region_size = Vector2i(8, 8)
+0:4/size_in_atlas = Vector2i(3, 2)
+0:4/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_eow3j"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_ryrav")
+
+[node name="game" type="Node2D" unique_id=1999440291]
+script = ExtResource("1_p57ef")
+
+[node name="map" type="TileMapLayer" parent="." unique_id=1503834095]
+tile_map_data = PackedByteArray(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 255, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 254, 255, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0)
+tile_set = SubResource("TileSet_7jktm")
+
+[node name="overlay" type="TileMapLayer" parent="." unique_id=1279050456]
+tile_set = SubResource("TileSet_eow3j")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=161679867]
+zoom = Vector2(5, 5)
+
+[node name="Timer" type="Timer" parent="." unique_id=1118096249]
+wait_time = 0.2
+autostart = true
+
+[node name="music" type="AudioStreamPlayer2D" parent="." unique_id=1264224948]
+stream = ExtResource("3_0tnpc")
+volume_db = -2.0
+parameters/looping = true
+
+[node name="crunch1" type="AudioStreamPlayer2D" parent="." unique_id=1999862640]
+stream = ExtResource("3_gee14")
+volume_db = 10.0
+
+[node name="crunch2" type="AudioStreamPlayer2D" parent="." unique_id=865684037]
+stream = ExtResource("4_0tnpc")
+volume_db = 10.0
+
+[node name="crunch3" type="AudioStreamPlayer2D" parent="." unique_id=1502285324]
+stream = ExtResource("5_vtaks")
+volume_db = 10.0
+
+[node name="death" type="AudioStreamPlayer2D" parent="." unique_id=94076286]
+stream = ExtResource("7_u5sy4")
+
+[node name="game_over" type="AudioStreamPlayer2D" parent="." unique_id=885271428]
+stream = ExtResource("6_kvpfn")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
