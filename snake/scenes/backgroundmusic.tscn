@@ -1,9 +1,0 @@
-[gd_scene format=3 uid="uid://uyuaq5urtjcy"]
-
-[ext_resource type="AudioStream" uid="uid://dgklfk5tetrsd" path="res://assets/music/stal.mp3" id="1_dd3px"]
-
-[node name="backgroundmusic" type="Node2D" unique_id=1730656672]
-
-[node name="stal" type="AudioStreamPlayer2D" parent="." unique_id=478402181]
-stream = ExtResource("1_dd3px")
-parameters/looping = true
